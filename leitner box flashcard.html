@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Flashcards </title>
+</head>
+    
+<body>
+    <header>
+    <h1 id="flashcards" >Flashcards</h1>
+    </header>
+   
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front"id="demo"></div>
+            <div class="flip-card-back" id="back"></div>
+       </div>  
+    </div>
+             
+    <p align="left">
+        <input type="button" id="previous" value="previous"
+        onclick="flashCard.changeCard(-1);"/>
+      
+        <input type="button" id="next" value="Next"
+        onclick="flashCard.changeCard(1);"/>
+    </p>
+
+
+<script> 
+       
+//flashCard is an object that contains many properties
+var flashCard = {
+    cards: [{ front: '纳闷儿', back: 'confused'}, 
+           { front: '大惑不解', back: 'puzzled' },
+           { front: '曾经', back: 'once' }],
+    
+    cardIndex: 0,
+        
+    //code to change flashcard
+    changeCard: function(changeby){
+          this.cardIndex += changeby;
+            if (this. cardIndex < 0){
+                this.cardIndex += this.cards.length;
+              }
+            this.cardIndex = this.cardIndex % this.cards.length;
+            this.myFunction();
+            this.printDef();
+    },
+             
+    myFunction: function(){
+        var nowCard = this.cards[ this.cardIndex].front;
+        var defCard = this.cards[ this.cardIndex ].back;
+        document.getElementById("demo").innerHTML = nowCard;
+        document.getElementById("back").innerHTML = defCard;                        
+    }
+            
+};
+
+    //this makes sure the first flashcard appears   
+flashCard.myFunction(); 
+         
+
+ </script>
+ <style>
+  body {
+         background-color: blanchedalmond;
+        box-sizing:border-box;
+         min-height:100%;
+          background:#FFF
+}
+
+h1
+{
+    text-align: left;
+    font-family: inherit;
+
+}
+
+.level {
+    color:red;
+}
+
+.flip-card {
+  text-align: center;
+  background-color: transparent;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}
+     
+     
+     
+    
+ </style>
+              
+</body>
+</html>
